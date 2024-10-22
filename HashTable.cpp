@@ -78,7 +78,7 @@ public:
         int idx = probe(key, i);
         while (table[idx] != -1 && !deleted[idx]) {
             i++;
-            if (i > tableSize) {
+            if (i >= tableSize) {
                 std::cout << "Max probing limit reached!" << std::endl;
                 return;
             }
