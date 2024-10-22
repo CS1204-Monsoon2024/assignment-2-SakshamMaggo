@@ -128,7 +128,7 @@ public:
             if (table[i] != -1 && !deleted[i]) {
                 std::cout << table[i] << " ";
             } else {
-                std::cout << "_ ";
+                std::cout << "- ";
             }
         }
         std::cout << std::endl;
