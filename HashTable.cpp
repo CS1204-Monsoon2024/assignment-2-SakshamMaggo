@@ -9,7 +9,7 @@ private:
     std::vector<bool> deleted;
     int currentSize;
     int tableSize;
-    const float LOAD_FACTOR = 0.8;
+    float LOAD_FACTOR = 0.8;
     bool isPrime(int n) {
         if (n <= 1) return false;
         if (n == 2 || n == 3) return true;
