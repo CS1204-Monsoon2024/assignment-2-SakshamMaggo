@@ -134,19 +134,3 @@ public:
         std::cout << std::endl;
     }
 };
-
-int main() {
-    HashTable ht(7);
-
-    ht.printTable();
-    ht.insert(1);
-    ht.printTable();
-    ht.insert(4);
-    ht.printTable();
-    ht.remove(3);  
-    ht.insert(1);
-    ht.insert(2);
-    ht.printTable();
-
-    return 0;
-}
