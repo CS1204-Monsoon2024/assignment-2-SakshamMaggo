@@ -10,7 +10,6 @@ private:
     int currentSize;
     int tableSize;
     float LOAD_FACTOR = 0.8;
-
     bool isPrime(int n) {
         if (n <= 1) return false;
         if (n == 2 || n == 3) return true;
@@ -20,14 +19,12 @@ private:
         }
         return true;
     }
-
     int nextPrime(int n) {
         while (!isPrime(n)) {
             n++;
         }
         return n;
     }
-
     int hash(int key) {
         return key % tableSize;
     }
@@ -67,30 +64,30 @@ public:
         currentSize = 0;
     }
 
-   void insert(int key) {
-    if (search(key) != -1) {
-        std::cout << "Duplicate key insertion is not allowed" << std::endl;
-        return;
-    }
-
-    if (loadFactor() > LOAD_FACTOR) {
-        rehash();
-    }
-
-    int i = 0;
-    int idx = probe(key, i);
-    while (table[idx] != -1 && !deleted[idx]) {
-        i++;
-        if (i >= tableSize) {  // Change from > to >=
-            std::cout << "Max probing limit reached!" << std::endl;
+    void insert(int key) {
+        if (search(key) != -1) {
+            std::cout << "Duplicate key insertion is not allowed" << std::endl;
             return;
         }
-        idx = probe(key, i);
+
+        if (loadFactor() >= LOAD_FACTOR) {
+            rehash();
+        }
+
+        int i = 0;
+        int idx = probe(key, i);
+        while (table[idx] != -1 && !deleted[idx]) {
+            i++;
+            if (i >= tableSize) {
+                std::cout << "Max probing limit reached!" << std::endl;
+                return;
+            }
+            idx = probe(key, i);
+        }
+        table[idx] = key;
+        deleted[idx] = false;
+        currentSize++;
     }
-    table[idx] = key;
-    deleted[idx] = false;  // Reuse the deleted slot
-    currentSize++;
-}
 
     int search(int key) {
         int i = 0;
@@ -100,10 +97,10 @@ public:
                 return idx;
             }
             i++;
-            if (i >= tableSize) return -1;  // Changed condition
+            if (i > tableSize) return -1;  
             idx = probe(key, i);
         }
-        return -1;
+        return -1;  
     }
 
     void remove(int key) {
@@ -117,7 +114,7 @@ public:
                 return;
             }
             i++;
-            if (i >= tableSize) {  // Changed condition
+            if (i > tableSize) {
                 std::cout << "Element not found" << std::endl;
                 return;
             }
@@ -137,19 +134,3 @@ public:
         std::cout << std::endl;
     }
 };
-
-int main() {
-    // Example usage:
-    HashTable ht(7);
-    ht.insert(1);
-    ht.insert(3);
-    ht.insert(12);
-    ht.insert(5);
-    ht.insert(6);
-    ht.insert(9);
-    ht.insert(10);
-    ht.insert(4);
-    ht.insert(7);
-    ht.printTable();
-    return 0;
-}
